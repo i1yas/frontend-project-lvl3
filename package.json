@@ -4,8 +4,6 @@
   "description": "[![Actions Status](https://github.com/i1yas/frontend-project-lvl3/workflows/hexlet-check/badge.svg)](https://github.com/i1yas/frontend-project-lvl3/actions)",
   "main": "index.js",
   "scripts": {
-    "start": "",
-    "build": "",
     "test": "jest --bail",
     "lint": "eslint ."
   },
@@ -20,9 +18,26 @@
   },
   "homepage": "https://github.com/i1yas/frontend-project-lvl3#readme",
   "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/eslint-parser": "^7.16.3",
+    "@babel/preset-env": "^7.16.4",
+    "babel-jest": "^27.4.2",
+    "babel-loader": "^8.2.3",
     "eslint": "^8.3.0",
+    "eslint-config-airbnb": "^19.0.1",
     "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jest": "^25.3.0",
-    "jest": "^27.4.3"
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "jest": "^27.4.3",
+    "postcss-loader": "^6.2.1",
+    "postcss-preset-env": "^7.0.1",
+    "style-loader": "^3.3.1",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0"
   }
 }
