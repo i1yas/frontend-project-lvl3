@@ -7,7 +7,7 @@
     "start": "",
     "build": "",
     "test": "jest --bail",
-    "list": "eslint ."
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
