@@ -2,13 +2,16 @@ install:
 	npm ci
 
 start-dev:
-	npm start
+	npx webpack serve
 
 build:
-	npm run build
+	rm -rf dist
+	NODE_ENV=production npx webpack
 
 lint:
 	npm run lint
 
 test:
 	npm test
+
+.PHONY: test
