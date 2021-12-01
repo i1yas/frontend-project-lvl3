@@ -1,0 +1,23 @@
+name: build
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install deps, build
+        run: |
+          make install
+          make build 
+      - name: Run linter
+        run: make lint 
+      - name: Run tests 
+        run: make test
