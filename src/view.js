@@ -1,27 +1,30 @@
+const renderForm = (form, { url, addButton, feedback }) => {
+  addButton.disabled = form.state === 'validating';
+  feedback.textContent = '';
+
+  const [error] = form.errors;
+
+  switch (form.state) {
+    case 'valid':
+      url.classList.remove('is-invalid');
+      break;
+    case 'invalid':
+      url.classList.add('is-invalid');
+      feedback.textContent = error;
+      break;
+    case 'validating':
+      break;
+    default:
+      throw new Error(`Unknown form state ${form.state}`);
+  }
+};
+
 const render = (path, value, state, {
   url, addButton, feedback,
 }) => {
   switch (path) {
     case 'form.state':
-      addButton.disabled = value === 'validating';
-      feedback.textContent = '';
-
-      if (state.form.state === 'valid') {
-        url.classList.remove('is-invalid');
-        break;
-      }
-
-      if (state.form.state === 'invalid') {
-        url.classList.add('is-invalid');
-        const [error] = state.form.errors;
-        feedback.textContent = error;
-        break;
-      }
-
-      if (state.form.state === 'validating') {
-        break;
-      }
-
+      renderForm(state.form, { url, addButton, feedback });
       break;
 
     case 'form.fields.url':
