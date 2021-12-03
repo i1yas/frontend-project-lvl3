@@ -1,7 +1,9 @@
 import onChange from 'on-change';
 import * as yup from 'yup';
+import i18next from 'i18next';
 import './style.scss';
-import render from './view';
+import { renderForm } from './view';
+import ru from './locale.ru.json';
 
 const getElements = () => ({
   addForm: document.querySelector('#add-form'),
@@ -36,6 +38,22 @@ const handleSubmit = async (state) => {
 const initApp = () => {
   const elements = getElements();
 
+  const i18nextInstance = i18next.createInstance({
+    lng: 'ru',
+    resources: { ru },
+  }, (err) => {
+    if (err) console.log('something went wrong loading', err);
+  });
+
+  yup.setLocale({
+    mixed: {
+      notOneOf: 'already_exists',
+    },
+    string: {
+      url: 'invalid_url',
+    },
+  });
+
   const state = onChange({
     form: {
       state: 'valid',
@@ -45,7 +63,15 @@ const initApp = () => {
       },
     },
     feeds: [],
-  }, (path, value) => render(path, value, state, elements));
+  }, (path) => {
+    if (path.includes('form.')) {
+      renderForm({
+        form: state.form,
+        i18n: i18nextInstance,
+        ...elements,
+      });
+    }
+  });
 
   elements.addForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -54,6 +80,12 @@ const initApp = () => {
 
   elements.url.addEventListener('input', (e) => {
     state.form.fields.url = e.target.value;
+  });
+
+  renderForm({
+    form: state.form,
+    i18n: i18nextInstance,
+    ...elements,
   });
 };
 

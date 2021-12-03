@@ -1,0 +1,13 @@
+{
+    "translation": {
+        "title": "RSS-reader",
+        "form": {
+            "url_placeholder": "Ссылка RSS",
+            "add": "Добавить"
+        },
+        "errorsMessages": {
+            "invalid_url": "Невалидная ссылка",
+            "already_exists": "Такой адрес уже существует"
+        }
+    }
+}

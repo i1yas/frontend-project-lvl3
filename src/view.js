@@ -1,4 +1,10 @@
-const renderForm = (form, { url, addButton, feedback }) => {
+export const renderForm = ({
+  form, i18n, url, addButton, feedback,
+}) => {
+  addButton.textContent = i18n.t('form.add');
+  url.placeholder = i18n.t('form.url_placeholder');
+  url.value = form.fields.url;
+
   addButton.disabled = form.state === 'validating';
   feedback.textContent = '';
 
@@ -10,7 +16,7 @@ const renderForm = (form, { url, addButton, feedback }) => {
       break;
     case 'invalid':
       url.classList.add('is-invalid');
-      feedback.textContent = error;
+      feedback.textContent = i18n.t(`errorsMessages.${error}`);
       break;
     case 'validating':
       break;
@@ -19,21 +25,4 @@ const renderForm = (form, { url, addButton, feedback }) => {
   }
 };
 
-const render = (path, value, state, {
-  url, addButton, feedback,
-}) => {
-  switch (path) {
-    case 'form.state':
-      renderForm(state.form, { url, addButton, feedback });
-      break;
-
-    case 'form.fields.url':
-      url.value = value;
-      break;
-
-    default:
-      break;
-  }
-};
-
-export default render;
+export const renderFeed = () => {};
