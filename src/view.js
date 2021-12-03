@@ -1,6 +1,8 @@
-export const renderForm = ({
-  form, i18n, url, addButton, feedback,
+const renderForm = ({
+  form, i18n, elements,
 }) => {
+  const { url, addButton, feedback } = elements;
+
   addButton.textContent = i18n.t('form.add');
   url.placeholder = i18n.t('form.url_placeholder');
   url.value = form.fields.url;
@@ -25,4 +27,18 @@ export const renderForm = ({
   }
 };
 
-export const renderFeed = () => {};
+const render = ({
+  path = null, state, i18n, elements,
+}) => {
+  const { form } = state;
+
+  if (path.startsWith('form.')) {
+    renderForm({
+      form,
+      i18n,
+      elements,
+    });
+  }
+};
+
+export default render;
