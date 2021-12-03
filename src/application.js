@@ -3,13 +3,38 @@ import * as yup from 'yup';
 import './style.scss';
 import render from './view';
 
+const getElements = () => ({
+  addForm: document.querySelector('#add-form'),
+  addButton: document.querySelector('#add-feed'),
+  url: document.querySelector('#url'),
+  feedback: document.querySelector('#feedback'),
+});
+
+const handleSubmit = async (state) => {
+  const { form } = state;
+
+  state.form.state = 'validating';
+
+  try {
+    const { url: newUrl } = form.fields;
+
+    await yup.string().url().validate(newUrl);
+
+    const urls = state.feeds.map((item) => item.path);
+    await yup.string().notOneOf(urls).validate(newUrl);
+
+    state.feeds.push({ path: form.fields.url });
+    form.fields.url = '';
+    form.errors = [];
+    form.state = 'valid';
+  } catch ({ errors }) {
+    form.errors = errors;
+    form.state = 'invalid';
+  }
+};
+
 const initApp = () => {
-  const elements = {
-    addForm: document.querySelector('#add-form'),
-    addButton: document.querySelector('#add-feed'),
-    url: document.querySelector('#url'),
-    feedback: document.querySelector('#feedback'),
-  };
+  const elements = getElements();
 
   const state = onChange({
     form: {
@@ -22,30 +47,9 @@ const initApp = () => {
     feeds: [],
   }, (path, value) => render(path, value, state, elements));
 
-  const handleSubmit = async () => {
-    const { fields } = state.form;
-
-    state.form.state = 'validating';
-
-    try {
-      await yup.string().url().validate(fields.url);
-
-      const urls = state.feeds.map((item) => item.path);
-      await yup.string().notOneOf(urls);
-
-      state.feeds.push({ path: state.form.fields.url });
-      state.form.fields.url = '';
-      state.form.errors = [];
-      state.form.state = 'valid';
-    } catch ({ errors }) {
-      state.form.errors = errors;
-      state.form.state = 'invalid';
-    }
-  };
-
   elements.addForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    handleSubmit();
+    handleSubmit(state);
   });
 
   elements.url.addEventListener('input', (e) => {
