@@ -11,16 +11,15 @@
         <div class="row">
             <h1>RSS-reader</h1>
         </div>
-        <div class="row">
-            <form id="add-form">
-                <div class="col-auto">
-                    <input id="url" type="text" class="form-control" placeholder="Ссылка RSS">
-                </div>
-                <div class="col-auto">
-                    <button id="add-feed" class="btn btn-primary">Добавить</button>
-                </div>
-            </form>
-        </div>
+        <form id="add-form" class="row">
+            <div class="col">
+                <input id="url" type="text" class="form-control" placeholder="Ссылка RSS">
+                <p id="feedback" class="text-danger"></p>
+            </div>
+            <div class="col-auto">
+                <button id="add-feed" class="btn btn-primary">Добавить</button>
+            </div>
+        </form>
     </div>
 </body>
 </html>
