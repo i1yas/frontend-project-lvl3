@@ -20,6 +20,7 @@ const loadFeed = (feedUrl) => {
   const proxyUrl = 'https://hexlet-allorigins.herokuapp.com/get';
   const proxyOptions = {
     url: feedUrl,
+    disableCache: true,
   };
   const promise = axios.get(proxyUrl, { params: proxyOptions });
   return promise.then(({ data }) => {
@@ -34,29 +35,30 @@ const handleSubmit = async (state) => {
 
   form.state = 'validating';
 
+  const { url: newUrl } = form.fields;
+  const urls = state.feeds.map((item) => item.path);
+
+  const schema = yup.string()
+    .url()
+    .notOneOf(urls);
+
   try {
-    const { url: newUrl } = form.fields;
+    await schema.validate(newUrl);
 
-    const urls = state.feeds.map((item) => item.path);
-
-    await yup.string()
-      .url()
-      .notOneOf(urls)
-      .validate(newUrl);
-
-    const pageResponse = await loadFeed(newUrl);
-    const xmlNode = parseXML(pageResponse.data);
+    const rawFeedData = await loadFeed(newUrl);
+    const xmlNode = parseXML(rawFeedData);
     const { channel, items } = parseFeed(xmlNode);
 
     const newFeed = { ...channel, url: newUrl };
-    const newItems = items.map((item) => ({ ...item, feedUrl: newUrl }));
+    const newPosts = items.map((item) => ({ ...item, feedUrl: newUrl }));
 
     state.feeds.push(newFeed);
-    state.items = state.items.concat(newItems);
+    state.posts = state.posts.concat(newPosts);
     form.fields.url = '';
     form.errors = [];
     form.state = 'valid';
-  } catch ({ errors }) {
+  } catch (e) {
+    const { errors } = e;
     form.errors = errors;
     form.state = 'invalid';
   }
