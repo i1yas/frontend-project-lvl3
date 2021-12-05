@@ -7,11 +7,14 @@ export const parseXML = (rawData) => {
 const parseItem = (itemNode) => {
   const title = itemNode.querySelector('title').textContent;
   const description = itemNode.querySelector('description').textContent;
+  const url = itemNode.querySelector('link').textContent;
 
   const pubDateString = itemNode.querySelector('pubDate').textContent;
   const pubDate = new Date(pubDateString);
 
-  return { title, description, pubDate };
+  return {
+    title, description, url, pubDate,
+  };
 };
 
 export const parseFeed = (rssTree) => {
@@ -31,7 +34,7 @@ export const parseFeed = (rssTree) => {
       items,
     };
   } catch (e) {
-    const error = { type: 'wrong-rss-format' };
+    const error = { errors: ['wrong_feed_format'] };
     throw error;
   }
 };
