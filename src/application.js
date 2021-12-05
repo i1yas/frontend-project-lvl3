@@ -1,8 +1,10 @@
 import onChange from 'on-change';
 import * as yup from 'yup';
 import i18next from 'i18next';
+import axios from 'axios';
 import './style.scss';
 import render from './view';
+import { parseXML, parseFeed } from './parser';
 import ru from './locale.ru.json';
 
 const getElements = () => ({
@@ -10,22 +12,47 @@ const getElements = () => ({
   addButton: document.querySelector('#add-feed'),
   url: document.querySelector('#url'),
   feedback: document.querySelector('#feedback'),
+  feeds: document.querySelector('#feeds'),
+  posts: document.querySelector('#posts'),
 });
+
+const loadFeed = (feedUrl) => {
+  const proxyUrl = 'https://hexlet-allorigins.herokuapp.com/get';
+  const proxyOptions = {
+    url: feedUrl,
+  };
+  const promise = axios.get(proxyUrl, { params: proxyOptions });
+  return promise.then(({ data }) => {
+    if (data.status.http_code === 200) return data.contents;
+    const error = { errors: ['network_issue'] };
+    throw error;
+  });
+};
 
 const handleSubmit = async (state) => {
   const { form } = state;
 
-  state.form.state = 'validating';
+  form.state = 'validating';
 
   try {
     const { url: newUrl } = form.fields;
 
-    await yup.string().url().validate(newUrl);
-
     const urls = state.feeds.map((item) => item.path);
-    await yup.string().notOneOf(urls).validate(newUrl);
 
-    state.feeds.push({ path: form.fields.url });
+    await yup.string()
+      .url()
+      .notOneOf(urls)
+      .validate(newUrl);
+
+    const pageResponse = await loadFeed(newUrl);
+    const xmlNode = parseXML(pageResponse.data);
+    const { channel, items } = parseFeed(xmlNode);
+
+    const newFeed = { ...channel, url: newUrl };
+    const newItems = items.map((item) => ({ ...item, feedUrl: newUrl }));
+
+    state.feeds.push(newFeed);
+    state.items = state.items.concat(newItems);
     form.fields.url = '';
     form.errors = [];
     form.state = 'valid';
@@ -53,6 +80,7 @@ const initialState = {
     },
   },
   feeds: [],
+  posts: [],
 };
 
 const initApp = () => {
