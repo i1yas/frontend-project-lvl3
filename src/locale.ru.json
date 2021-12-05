@@ -1,13 +1,21 @@
 {
     "translation": {
         "title": "RSS-reader",
+        "feeds": {
+            "title": "Фиды"
+        },
+        "posts": {
+            "title": "Посты",
+            "show": "Смотреть"
+        },
         "form": {
             "url_placeholder": "Ссылка RSS",
             "add": "Добавить"
         },
         "errorsMessages": {
             "invalid_url": "Невалидная ссылка",
-            "already_exists": "Такой адрес уже существует"
+            "already_exists": "Такой адрес уже существует",
+            "network_issue": "Проблемы с сетью"
         }
     }
 }
