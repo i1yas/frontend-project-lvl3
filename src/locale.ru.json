@@ -14,8 +14,9 @@
         },
         "errorsMessages": {
             "invalid_url": "Невалидная ссылка",
-            "already_exists": "Такой адрес уже существует",
-            "network_issue": "Проблемы с сетью"
+            "already_exists": "Фид с таким адресом уже добавлен",
+            "network_issue": "Не удалось загрузить фид",
+            "wrong_feed_format": "Неверный формат фида"
         }
     }
 }
