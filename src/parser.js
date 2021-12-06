@@ -5,6 +5,7 @@ export const parseXML = (rawData) => {
 };
 
 const parseItem = (itemNode) => {
+  const guid = itemNode.querySelector('guid').textContent;
   const title = itemNode.querySelector('title').textContent;
   const description = itemNode.querySelector('description').textContent;
   const url = itemNode.querySelector('link').textContent;
@@ -13,7 +14,7 @@ const parseItem = (itemNode) => {
   const pubDate = new Date(pubDateString);
 
   return {
-    title, description, url, pubDate,
+    guid, title, description, url, pubDate,
   };
 };
 
