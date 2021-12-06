@@ -30,6 +30,44 @@ const loadFeed = (feedUrl) => {
   });
 };
 
+const updateFeed = ({ state, feedInd, newData }) => {
+  const feed = state.feeds[feedInd];
+  const posts = state.posts.filter((post) => post.feedUrl === feed.url);
+
+  const newPosts = newData.items
+    .filter((item) => {
+      const samePost = posts.find((post) => post.guid === item.guid);
+      return !samePost;
+    })
+    .map((post) => ({ ...post, feedUrl: feed.url }));
+
+  state.posts = state.posts.concat(newPosts);
+};
+
+const watchFeeds = ({ state, feedInd = 0, interval = 5000 }) => {
+  setTimeout(() => {
+    const currentFeed = state.feeds[feedInd];
+
+    if (!currentFeed) {
+      return watchFeeds({ state, interval });
+    }
+
+    const onResponseEnd = (error) => (response) => {
+      if (!error) {
+        const xmlNode = parseXML(response);
+        const newData = parseFeed(xmlNode);
+        updateFeed({ state, feedInd, newData });
+      }
+      const nextFeedInd = (feedInd + 1) % state.feeds.length;
+      watchFeeds({ state, feedInd: nextFeedInd, interval });
+    };
+
+    return loadFeed(currentFeed.url)
+      .then(onResponseEnd())
+      .catch(onResponseEnd(true));
+  }, interval);
+};
+
 const handleSubmit = async (state) => {
   const { form } = state;
 
@@ -111,6 +149,8 @@ const initApp = () => {
   elements.url.addEventListener('input', (e) => {
     state.form.fields.url = e.target.value;
   });
+
+  watchFeeds({ state });
 
   render({ state, i18n, elements });
 };
