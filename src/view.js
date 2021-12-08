@@ -54,16 +54,52 @@ const renderPosts = ({ state, i18n, elements }) => {
 
   const sortedPostItems = state.posts.sort((a, b) => b.pubDate - a.pubDate);
 
-  const postsItems = sortedPostItems.map((item) => (
-    `<div>
-      <a href=${item.url} target="_blank">${item.title}</a>
-    </div>`
-  ));
+  const postsItems = sortedPostItems.map((item) => {
+    const isRead = state.readPosts.includes(item.guid);
+    const linkClass = isRead ? 'fw-normal' : 'fw-bold';
+    return (
+      `<div class="row align-items-center">
+        <div class="col">
+          <a class="${linkClass}" href=${item.url} target="_blank">${item.title}</a>
+        </div>
+        <div class="col">
+          <button
+            class="btn btn-outline-primary btn-sm"
+            data-bs-toggle="modal"
+            data-bs-target="#postPreviewModal"
+            data-post-id=${item.guid}
+          >
+            ${i18n.t('posts.show')}
+          </button>
+        </div>
+      </div>`
+    );
+  });
 
   posts.innerHTML = `
     <h2>${i18n.t('posts.title')}</h2>
     ${postsItems.join('\n')}
   `;
+};
+
+const renderPostPreviewModal = ({ state, i18n, elements }) => {
+  const { postId } = state.postPreviewModal;
+
+  if (!postId) return;
+
+  const post = state.posts.find((item) => item.guid === postId);
+
+  const { postPreviewModal: modal } = elements;
+  const title = modal.querySelector('.modal-title');
+  const description = modal.querySelector('.modal-body');
+  const readBtn = modal.querySelector('.read-more');
+  const closeBtn = modal.querySelector('.close-preview');
+
+  title.textContent = post.title;
+  description.textContent = post.description;
+  readBtn.textContent = i18n.t('posts.readMore');
+  readBtn.href = post.url;
+  closeBtn.textContent = i18n.t('posts.closePreview');
 };
 
 const render = ({
@@ -77,6 +113,10 @@ const render = ({
       i18n,
       elements,
     });
+  }
+
+  if (path.startsWith('postPreviewModal')) {
+    renderPostPreviewModal({ state, i18n, elements });
   }
 
   renderFeeds({

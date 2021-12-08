@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RSS-reader</title>
 </head>
+
 <body>
+    <div class="modal fade" id="postPreviewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <a href="#" target="_blank" class="read-more btn btn-primary">Read</a>
+                    <button type="button" class="close-preview btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <h1>RSS-reader</h1>
@@ -30,4 +49,5 @@
         </div>
     </div>
 </body>
+
 </html>

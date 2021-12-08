@@ -14,6 +14,8 @@ const getElements = () => ({
   feedback: document.querySelector('#feedback'),
   feeds: document.querySelector('#feeds'),
   posts: document.querySelector('#posts'),
+  postPreviewModal: document.querySelector('#postPreviewModal'),
+  readPostBtn: document.querySelector('#postPreviewModal .read-more'),
 });
 
 const loadFeed = (feedUrl) => {
@@ -121,6 +123,10 @@ const initialState = {
   },
   feeds: [],
   posts: [],
+  readPosts: [],
+  postPreviewModal: {
+    postId: null,
+  },
 };
 
 const initApp = () => {
@@ -148,6 +154,22 @@ const initApp = () => {
 
   elements.url.addEventListener('input', (e) => {
     state.form.fields.url = e.target.value;
+  });
+
+  elements.postPreviewModal.addEventListener('show.bs.modal', (e) => {
+    const button = e.relatedTarget;
+    const { postId } = button.dataset;
+    state.postPreviewModal.postId = postId;
+  });
+
+  elements.postPreviewModal.addEventListener('hide.bs.modal', () => {
+    state.postPreviewModal.postId = null;
+  });
+
+  elements.readPostBtn.addEventListener('click', () => {
+    const { postId } = state.postPreviewModal;
+    if (state.readPosts.includes(postId)) return;
+    state.readPosts.push(postId);
   });
 
   watchFeeds({ state });

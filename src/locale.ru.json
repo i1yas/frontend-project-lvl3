@@ -6,7 +6,9 @@
         },
         "posts": {
             "title": "Посты",
-            "show": "Смотреть"
+            "show": "Смотреть",
+            "readMore": "Читать полностью",
+            "closePreview": "Закрыть"
         },
         "form": {
             "url_placeholder": "Ссылка RSS",
