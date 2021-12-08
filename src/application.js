@@ -26,11 +26,12 @@ const loadFeed = (feedUrl) => {
     disableCache: true,
   };
   const promise = axios.get(proxyUrl, { params: proxyOptions });
-  return promise.then(({ data }) => {
-    const { status, contents } = data;
-    if (status.http_code !== 200) throw new Error('Unexpected response code');
+  return promise.then(({ status, data }) => {
+    const { contents } = data;
+    if (status !== 200) throw new Error('Unexpected response status code');
     return contents;
-  }).catch(() => {
+  }).catch((e) => {
+    console.log('Network issue', e);
     const error = { errors: ['network_issue'] };
     throw error;
   });
