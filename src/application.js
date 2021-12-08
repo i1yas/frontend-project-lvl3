@@ -155,16 +155,13 @@ const initEventListeners = ({ elements, state }) => {
     const button = e.relatedTarget;
     const { postId } = button.dataset;
     state.postPreviewModal.postId = postId;
+
+    if (state.readPosts.includes(postId)) return;
+    state.readPosts.push(postId);
   });
 
   elements.postPreviewModal.addEventListener('hide.bs.modal', () => {
     state.postPreviewModal.postId = null;
-  });
-
-  elements.readPostBtn.addEventListener('click', () => {
-    const { postId } = state.postPreviewModal;
-    if (state.readPosts.includes(postId)) return;
-    state.readPosts.push(postId);
   });
 };
 
