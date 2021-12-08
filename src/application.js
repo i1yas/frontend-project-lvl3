@@ -188,6 +188,8 @@ const initApp = () => {
   watchFeeds({ state });
 
   render({ state, i18n, elements });
+
+  elements.url.focus();
 };
 
 export default initApp;
