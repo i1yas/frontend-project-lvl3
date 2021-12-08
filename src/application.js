@@ -11,7 +11,8 @@ const getElements = () => ({
   addForm: document.querySelector('#add-form'),
   addButton: document.querySelector('#add-feed'),
   url: document.querySelector('#url'),
-  feedback: document.querySelector('#feedback'),
+  errorFeedback: document.querySelector('#errorFeedback'),
+  successFeedback: document.querySelector('#successFeedback'),
   feeds: document.querySelector('#feeds'),
   posts: document.querySelector('#posts'),
   postPreviewModal: document.querySelector('#postPreviewModal'),
@@ -96,7 +97,7 @@ const handleSubmit = async (state) => {
     state.posts = state.posts.concat(newPosts);
     form.fields.url = '';
     form.errors = [];
-    form.state = 'valid';
+    form.state = 'feed-added';
   } catch (e) {
     const { errors } = e;
     form.errors = errors;

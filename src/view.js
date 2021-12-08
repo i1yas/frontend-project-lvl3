@@ -1,22 +1,28 @@
 const renderForm = ({
   form, i18n, elements,
 }) => {
-  const { url, addButton, feedback } = elements;
+  const {
+    url, addButton, errorFeedback, successFeedback,
+  } = elements;
 
   addButton.textContent = i18n.t('form.add');
   url.placeholder = i18n.t('form.url_placeholder');
   url.value = form.fields.url;
+  url.classList.remove('is-invalid');
 
   addButton.disabled = form.state === 'validating';
-  feedback.textContent = '';
+  errorFeedback.textContent = '';
+  successFeedback.textContent = '';
 
   switch (form.state) {
     case 'valid':
-      url.classList.remove('is-invalid');
+      break;
+    case 'feed-added':
+      successFeedback.textContent = i18n.t('feeds.added');
       break;
     case 'invalid':
       url.classList.add('is-invalid');
-      feedback.textContent = i18n.t(`errorsMessages.${form.errors[0]}`);
+      errorFeedback.textContent = i18n.t(`errorsMessages.${form.errors[0]}`);
       break;
     case 'validating':
       break;

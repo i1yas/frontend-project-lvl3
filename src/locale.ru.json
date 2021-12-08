@@ -3,7 +3,7 @@
         "title": "RSS-reader",
         "feeds": {
             "title": "Фиды",
-            "successfullyLoaded": "RSS успешно загружен"
+            "added": "RSS успешно загружен"
         },
         "posts": {
             "title": "Посты",
