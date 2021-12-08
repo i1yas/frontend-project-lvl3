@@ -77,7 +77,7 @@ const handleSubmit = async (state) => {
   form.state = 'validating';
 
   const { url: newUrl } = form.fields;
-  const urls = state.feeds.map((item) => item.path);
+  const urls = state.feeds.map((item) => item.url);
 
   const schema = yup.string()
     .url()
