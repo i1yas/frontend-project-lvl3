@@ -9,8 +9,9 @@ const renderForm = ({
   url.placeholder = i18n.t('form.url_placeholder');
   url.value = form.fields.url;
   url.classList.remove('is-invalid');
+  url.readOnly = false;
 
-  addButton.disabled = form.state === 'validating';
+  addButton.disabled = false;
   errorFeedback.textContent = '';
   successFeedback.textContent = '';
 
@@ -25,6 +26,8 @@ const renderForm = ({
       errorFeedback.textContent = i18n.t(`errorsMessages.${form.errors[0]}`);
       break;
     case 'validating':
+      addButton.disabled = true;
+      url.readOnly = true;
       break;
     default:
       throw new Error(`Unknown form state ${form.state}`);
