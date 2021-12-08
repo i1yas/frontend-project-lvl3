@@ -84,11 +84,16 @@ const handleSubmit = async (state) => {
     .notOneOf(urls);
 
   try {
+    console.log('process url', newUrl);
     await schema.validate(newUrl);
+    console.log('url validated');
 
     const rawFeedData = await loadFeed(newUrl);
+    console.log('feed loaded');
+
     const xmlNode = parseXML(rawFeedData);
     const { channel, items } = parseFeed(xmlNode);
+    console.log('feed parsed');
 
     const newFeed = { ...channel, url: newUrl };
     const newPosts = items.map((item) => ({ ...item, feedUrl: newUrl }));
@@ -98,10 +103,12 @@ const handleSubmit = async (state) => {
     form.fields.url = '';
     form.errors = [];
     form.state = 'feed-added';
+    console.log('feed added');
   } catch (e) {
     const { errors } = e;
     form.errors = errors;
     form.state = 'invalid';
+    console.log('error', errors);
   }
 };
 
