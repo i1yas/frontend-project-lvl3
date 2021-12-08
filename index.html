@@ -32,14 +32,14 @@
         </div>
         <form id="add-form" class="row">
             <div class="col">
-                <input id="url" type="text" class="form-control" placeholder="Ссылка RSS">
+                <input id="url" name="url" type="text" class="form-control" placeholder="Ссылка RSS" role="textbox">
                 <p>
                     <span id="errorFeedback" class="text-danger"></span>
                     <span id="successFeedback" class="text-success"></span>
                 </p>
             </div>
             <div class="col-auto">
-                <button id="add-feed" class="btn btn-primary">Добавить</button>
+                <button id="add-feed" name="add" class="btn btn-primary" role="button">Добавить</button>
             </div>
         </form>
     </div>
