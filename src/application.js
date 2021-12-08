@@ -17,7 +17,6 @@ const getElements = () => ({
   feeds: document.querySelector('#feeds'),
   posts: document.querySelector('#posts'),
   postPreviewModal: document.querySelector('#postPreviewModal'),
-  readPostBtn: document.querySelector('#postPreviewModal .read-more'),
 });
 
 const loadFeed = (feedUrl) => {
