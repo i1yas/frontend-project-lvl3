@@ -54,20 +54,8 @@ const renderFeeds = ({ state, i18n, elements }) => {
   `;
 };
 
-const renderPosts = ({ state, i18n, elements }) => {
-  const { posts } = elements;
-
-  posts.innerHTML = '';
-
-  if (!state.posts.length) return;
-
-  const sortedPostItems = state.posts.sort((a, b) => b.pubDate - a.pubDate);
-
-  const postsItems = sortedPostItems.map((item) => {
-    const isRead = state.readPosts.includes(item.guid);
-    const linkClass = isRead ? 'fw-normal' : 'fw-bold';
-    return (
-      `<div class="row align-items-center">
+const getPostLayout = ({ item, linkClass, i18n }) => (
+  `<div class="row align-items-center">
         <div class="col">
           <a
             class="${linkClass}"
@@ -89,7 +77,21 @@ const renderPosts = ({ state, i18n, elements }) => {
           </button>
         </div>
       </div>`
-    );
+);
+
+const renderPosts = ({ state, i18n, elements }) => {
+  const { posts } = elements;
+
+  posts.innerHTML = '';
+
+  if (!state.posts.length) return;
+
+  const sortedPostItems = state.posts.sort((a, b) => b.pubDate - a.pubDate);
+
+  const postsItems = sortedPostItems.map((item) => {
+    const isRead = state.readPosts.includes(item.guid);
+    const linkClass = isRead ? 'fw-normal' : 'fw-bold';
+    return getPostLayout({ item, linkClass, i18n });
   });
 
   posts.innerHTML = `
