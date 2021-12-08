@@ -106,9 +106,9 @@ const handleSubmit = async (state) => {
     console.log('feed added');
   } catch (e) {
     const { errors } = e;
+    console.log('error', errors);
     form.errors = errors;
     form.state = 'invalid';
-    console.log('error', errors);
   }
 };
 
