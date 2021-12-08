@@ -125,7 +125,7 @@ const validationLocale = {
   },
 };
 
-const initialState = {
+const getInitialState = () => ({
   form: {
     state: 'valid',
     errors: [],
@@ -139,7 +139,7 @@ const initialState = {
   postPreviewModal: {
     postId: null,
   },
-};
+});
 
 const initEventListeners = ({ elements, state }) => {
   elements.addForm.addEventListener('submit', (e) => {
@@ -180,7 +180,7 @@ const initApp = () => {
 
   yup.setLocale(validationLocale);
 
-  const state = onChange(initialState, (path) => {
+  const state = onChange(getInitialState(), (path) => {
     render({
       path, state, i18n, elements,
     });
