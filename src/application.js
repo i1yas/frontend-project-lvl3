@@ -129,24 +129,7 @@ const initialState = {
   },
 };
 
-const initApp = () => {
-  const elements = getElements();
-
-  const i18n = i18next.createInstance({
-    lng: 'ru',
-    resources: { ru },
-  }, (err) => {
-    if (err) console.log('something went wrong loading', err);
-  });
-
-  yup.setLocale(validationLocale);
-
-  const state = onChange(initialState, (path) => {
-    render({
-      path, state, i18n, elements,
-    });
-  });
-
+const initEventListeners = ({ elements, state }) => {
   elements.addForm.addEventListener('submit', (e) => {
     e.preventDefault();
     handleSubmit(state);
@@ -171,6 +154,27 @@ const initApp = () => {
     if (state.readPosts.includes(postId)) return;
     state.readPosts.push(postId);
   });
+};
+
+const initApp = () => {
+  const elements = getElements();
+
+  const i18n = i18next.createInstance({
+    lng: 'ru',
+    resources: { ru },
+  }, (err) => {
+    if (err) console.log('something went wrong loading', err);
+  });
+
+  yup.setLocale(validationLocale);
+
+  const state = onChange(initialState, (path) => {
+    render({
+      path, state, i18n, elements,
+    });
+  });
+
+  initEventListeners({ elements, state });
 
   watchFeeds({ state });
 
