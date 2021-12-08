@@ -49,14 +49,14 @@ const renderFeeds = ({ state, i18n, elements }) => {
   ));
 
   feeds.innerHTML = `
-    <h2>${i18n.t('feeds.title')}</h2>
+    <h4>${i18n.t('feeds.title')}</h4>
     ${feedsItems.join('\n')}
   `;
 };
 
 const getPostLayout = ({ item, linkClass, i18n }) => (
-  `<div class="row align-items-center">
-        <div class="col">
+  `<div class="row align-items-center gx-2 py-2">
+        <div class="col-8">
           <a
             class="${linkClass}"
             href=${item.url}
@@ -95,7 +95,7 @@ const renderPosts = ({ state, i18n, elements }) => {
   });
 
   posts.innerHTML = `
-    <h2>${i18n.t('posts.title')}</h2>
+    <h4>${i18n.t('posts.title')}</h4>
     ${postsItems.join('\n')}
   `;
 };

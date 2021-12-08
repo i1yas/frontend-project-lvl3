@@ -26,29 +26,27 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <h1>RSS-reader</h1>
-        </div>
-        <form id="add-form" class="row">
-            <div class="col">
-                <input id="url" aria-label="url" type="text" class="form-control" placeholder="Ссылка RSS"
-                    role="textbox">
-                <p>
-                    <span id="errorFeedback" class="text-danger"></span>
-                    <span id="successFeedback" class="text-success"></span>
-                </p>
-            </div>
-            <div class="col-auto">
-                <button id="add-feed" aria-label="add" class="btn btn-primary" role="button">Добавить</button>
-            </div>
-        </form>
-    </div>
-    <div class="container">
+    <div class="container pt-2">
         <div class="row gx-5">
-            <div id="posts" class="col-md-8">
-            </div>
-            <div id="feeds" class="col-md-4">
+            <aside class="col-md-3">
+                <h1>RSS-reader</h1>
+                <div id="feeds"></div>
+            </aside>
+            <div class="col-md-9 pt-1">
+                <form id="add-form" class="row">
+                    <div class="col-6">
+                        <input id="url" aria-label="url" type="text" class="form-control" placeholder="Ссылка RSS"
+                            role="textbox">
+                        <p>
+                            <span id="errorFeedback" class="text-danger"></span>
+                            <span id="successFeedback" class="text-success"></span>
+                        </p>
+                    </div>
+                    <div class="col-auto">
+                        <button id="add-feed" aria-label="add" class="btn btn-primary" role="button">Добавить</button>
+                    </div>
+                </form>
+                <div id="posts" class="py-2"></div>
             </div>
         </div>
     </div>
