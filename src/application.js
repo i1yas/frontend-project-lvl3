@@ -2,6 +2,7 @@ import onChange from 'on-change';
 import * as yup from 'yup';
 import i18next from 'i18next';
 import axios from 'axios';
+import 'bootstrap/js/dist/modal';
 import './style.scss';
 import render from './view';
 import { parseXML, parseFeed } from './parser';
