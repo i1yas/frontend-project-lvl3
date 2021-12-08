@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/i1yas/frontend-project-lvl3/workflows/hexlet-check/badge.svg)](https://github.com/i1yas/frontend-project-lvl3/actions)",
-  "main": "index.js",
+  "main": "src/application.js",
   "scripts": {
     "test": "jest --bail",
     "lint": "eslint ."
