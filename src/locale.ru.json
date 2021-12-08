@@ -2,11 +2,12 @@
     "translation": {
         "title": "RSS-reader",
         "feeds": {
-            "title": "Фиды"
+            "title": "Фиды",
+            "successfullyLoaded": "RSS успешно загружен"
         },
         "posts": {
             "title": "Посты",
-            "show": "Смотреть",
+            "show": "Просмотр",
             "readMore": "Читать полностью",
             "closePreview": "Закрыть"
         },
@@ -15,10 +16,11 @@
             "add": "Добавить"
         },
         "errorsMessages": {
-            "invalid_url": "Невалидная ссылка",
-            "already_exists": "Фид с таким адресом уже добавлен",
-            "network_issue": "Не удалось загрузить фид",
-            "wrong_feed_format": "Неверный формат фида"
+            "empty_url": "Не должно быть пустым",
+            "invalid_url": "Ссылка должна быть валидным URL",
+            "already_exists": "RSS уже существует",
+            "network_issue": "Ошибка сети",
+            "wrong_feed_format": "Ресурс не содержит валидный RSS"
         }
     }
 }
