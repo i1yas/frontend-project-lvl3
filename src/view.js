@@ -69,11 +69,18 @@ const renderPosts = ({ state, i18n, elements }) => {
     return (
       `<div class="row align-items-center">
         <div class="col">
-          <a class="${linkClass}" href=${item.url} target="_blank">${item.title}</a>
+          <a
+            class="${linkClass}"
+            href=${item.url}
+            target="_blank"
+          >
+            ${item.title}
+          </a>
         </div>
         <div class="col">
           <button
             class="btn btn-outline-primary btn-sm"
+            role="button"
             data-bs-toggle="modal"
             data-bs-target="#postPreviewModal"
             data-post-id=${item.guid}
